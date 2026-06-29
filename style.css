@@ -1,0 +1,113 @@
+:root {
+    --grid-gap: 8px;
+    --background-color: #1e1e24;
+    --cell-color-initial: #4a4e69;
+    --cell-color-named-html: #e34f26; /* Laranja HTML */
+    --cell-color-named-css: #007acc;  /* Azul CSS */
+    --cell-color-revealed: #f8f9fa;
+    --text-color-light: #ffffff;
+    --text-color-dark: #222222;
+    --border-color: #ced4da;
+    --border-radius: 8px;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.game-container {
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+}
+
+h1 {
+    color: #f8f9fa;
+    margin-bottom: 5px;
+    font-size: 2rem;
+}
+
+.subtitle {
+    color: #adb5bd;
+    margin-bottom: 25px;
+    font-size: 1rem;
+}
+
+.grid-container {
+    display: grid;
+    width: 100%;
+    /* Cria uma grade de 10 colunas perfeitas */
+    grid-template-columns: repeat(10, 1fr);
+    gap: var(--grid-gap);
+}
+
+.cell {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    padding: 5px;
+    box-sizing: border-box;
+    transition: transform 0.2s ease, background-color 0.3s, color 0.3s;
+    user-select: none;
+    background-color: var(--cell-color-initial);
+    color: var(--text-color-light);
+    font-size: clamp(14px, 2.5vw, 22px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Efeito hover apenas nas células não reveladas */
+.cell:not(.revealed):hover {
+    transform: scale(1.08);
+    z-index: 5;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+/* Estilo quando vira HTML */
+.cell.named.type-html {
+    background-color: var(--cell-color-named-html);
+}
+
+/* Estilo quando vira CSS */
+.cell.named.type-css {
+    background-color: var(--cell-color-named-css);
+}
+
+.cell.named {
+    color: var(--text-color-light);
+    font-size: clamp(11px, 1.5vw, 16px);
+    word-break: break-word;
+}
+
+/* Estilo quando revela a resposta final */
+.cell.revealed {
+    background-color: var(--cell-color-revealed);
+    color: var(--text-color-dark);
+    border: 2px solid var(--border-color);
+    font-weight: 500;
+    cursor: default;
+    padding: 8px;
+    font-size: clamp(9px, 1.1vw, 13px);
+    line-height: 1.3;
+    box-shadow: none;
+}
+
+/* Responsividade para telas menores (celulares) */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: repeat(5, 1fr); /* Vira 5 colunas em telas pequenas */
+    }
+}
